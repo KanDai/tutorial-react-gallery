@@ -22,8 +22,15 @@ const Image = (props) => {
     )
 }
 
+const Loading = () => {
+    return <p>Loading…</p>
+}
+
 const Gallery = (props) => {
     const { urls } = props
+    if (urls === null) {
+        return <Loading />
+    }
     return (
         <div className="columns is-vcentered is-multiline">
             {urls.map((url) => {
@@ -51,7 +58,8 @@ const Main = () => {
         'https://images.dog.ceo/breeds/shiba/shiba-7.jpg',
         'https://images.dog.ceo/breeds/shiba/shiba-8.jpg',
         'https://images.dog.ceo/breeds/shiba/shiba-9.jpg',
-    ];
+    ]
+    // const urls = null
 
     return (
         <main>
