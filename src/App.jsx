@@ -61,8 +61,8 @@ const Form = (props) => {
                     <div className="control is-expanded">
                         <div className="select is-fullwidth">
                             <select name="breed" defaultValue="shiba">
-                            <option value="shiba">Shiba</option>
-                            <option value="akita">Akita</option>
+                                <option value="shiba">Shiba</option>
+                                <option value="akita">Akita</option>
                             </select>
                         </div>
                     </div>
@@ -119,7 +119,6 @@ const Footer = () => {
         </footer>
     )
 }
-
 
 const App = () => {
     return (
