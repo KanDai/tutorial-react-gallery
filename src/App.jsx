@@ -62,15 +62,15 @@ const Gallery = (props) => {
 const Form = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
-        const { breed } = e.target.elements
-        props.onFormSubmit(breed.value)
+        const { breed, limit } = e.target.elements
+        props.onFormSubmit(breed.value, limit.value)
     }
 
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <div className="field has-addons">
-                    <div className="control is-expanded">
+                <div class="columns">
+                    <div className="column">
                         <div className="select is-fullwidth">
                             <select name="breed" defaultValue="shiba">
                                 <option value="shiba">Shiba</option>
@@ -78,7 +78,25 @@ const Form = (props) => {
                             </select>
                         </div>
                     </div>
-                    <div className="control">
+                    <div className="column">
+                        <div className="select is-fullwidth">
+                            <select name="limit" defaultValue="12">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column">
                         <button type="submit" className="button is-dark">
                             Reload
                         </button>
@@ -93,8 +111,8 @@ const Main = () => {
     const [urls, setUrls] = useState(null)
 
     const loadImages = useCallback(
-        (breed) => {
-            fetchImages(breed).then((urls) => {
+        (breed, limit) => {
+            fetchImages(breed, limit).then((urls) => {
                 setUrls(urls)
             })
         },
