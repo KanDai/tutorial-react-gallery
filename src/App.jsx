@@ -17,8 +17,20 @@ const Image = (props) => {
     return (
         <div className="card">
             <div className="card-image">
-                <figure className="image">
-                    <img src={props.src} alt="cute dog" />
+                <figure
+                    className="image"
+                    style={{
+                        aspectRatio: '1/1',
+                    }}
+                >
+                    <img
+                        src={props.src}
+                        alt="cute dog"
+                        style={{
+                            aspectRatio: '1/1',
+                            objectFit: 'cover',
+                        }}
+                    />
                 </figure>
             </div>
         </div>
