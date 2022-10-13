@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { fetchImages } from './api'
 
 const Header = () => {
@@ -79,21 +79,23 @@ const Form = (props) => {
 
 const Main = () => {
     const [urls, setUrls] = useState(null)
-    useEffect(() => {
-        fetchImages('shiba').then((urls) => {
-            setUrls(urls)
-        })
-    }, [])
-    const reloadImages = (breed) => {
-        fetchImages(breed).then((urls) => {
-            setUrls(urls)
-        })
-    }
+
+    const loadImages = useCallback(
+        (breed) => {
+            fetchImages(breed).then((urls) => {
+                setUrls(urls)
+            })
+        },
+        [fetchImages, setUrls]
+    )
+
+    useEffect(() => loadImages('shiba'), [])
+
     return (
         <main>
             <section className="section">
                 <div className="container">
-                    <Form onFormSubmit={reloadImages} />
+                    <Form onFormSubmit={loadImages} />
                 </div>
             </section>
             <section className="section">
