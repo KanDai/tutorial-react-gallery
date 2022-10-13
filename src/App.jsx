@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
-import { fetchImages } from './api'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { fetchImages, fetchBreedList } from './api'
 
 const Header = () => {
     return (
@@ -60,49 +60,67 @@ const Gallery = (props) => {
 }
 
 const Form = (props) => {
+    const [breeds, setBreeds] = useState([])
+
     const handleSubmit = (e) => {
         e.preventDefault()
         const { breed, limit } = e.target.elements
         props.onFormSubmit(breed.value, limit.value)
     }
 
+    useEffect(() => {
+        fetchBreedList().then((list) => {
+            setBreeds(list)
+        })
+    }, [])
+
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <div className="columns">
-                    <div className="column">
-                        <div className="select is-fullwidth">
-                            <select name="breed" defaultValue="shiba">
-                                <option value="shiba">Shiba</option>
-                                <option value="akita">Akita</option>
-                            </select>
+            {breeds.length > 0 && (
+                <form onSubmit={handleSubmit}>
+                    <div className="columns">
+                        <div className="column">
+                            <div className="select is-fullwidth">
+                                <select name="breed" defaultValue="shiba">
+                                    {breeds.map((breed) => {
+                                        return (
+                                            <option
+                                                key={breed}
+                                                value={breed.replace(' ', '/')}
+                                            >
+                                                {breed}
+                                            </option>
+                                        )
+                                    })}
+                                </select>
+                            </div>
+                        </div>
+                        <div className="column">
+                            <div className="select is-fullwidth">
+                                <select name="limit" defaultValue="12">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="column">
+                            <button type="submit" className="button is-dark">
+                                Reload
+                            </button>
                         </div>
                     </div>
-                    <div className="column">
-                        <div className="select is-fullwidth">
-                            <select name="limit" defaultValue="12">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="column">
-                        <button type="submit" className="button is-dark">
-                            Reload
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            )}
         </div>
     )
 }
