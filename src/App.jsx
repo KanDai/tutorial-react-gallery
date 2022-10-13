@@ -69,7 +69,7 @@ const Form = (props) => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <div class="columns">
+                <div className="columns">
                     <div className="column">
                         <div className="select is-fullwidth">
                             <select name="breed" defaultValue="shiba">
@@ -96,7 +96,7 @@ const Form = (props) => {
                             </select>
                         </div>
                     </div>
-                    <div class="column">
+                    <div className="column">
                         <button type="submit" className="button is-dark">
                             Reload
                         </button>
