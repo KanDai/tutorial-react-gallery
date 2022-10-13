@@ -154,7 +154,14 @@ const Footer = () => {
 
 const App = () => {
     return (
-        <div>
+        <div
+            style={{
+                display: 'grid',
+                gridTemplateRows: 'auto 1fr auto',
+                gridTemplateColumns: '100%',
+                minHeight: '100vh',
+            }}
+        >
             <Header />
             <Main />
             <Footer />
